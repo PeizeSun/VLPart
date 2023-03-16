@@ -1,0 +1,14 @@
+_BASE_: "../coco/vlm_rcnn_r50_coco.yaml"
+MODEL:
+  MASK_ON: False
+  ROI_HEADS:
+    NUM_CLASSES: 20
+  ROI_BOX_HEAD:
+    MULT_OBJECT_SCORE: True
+    USE_SIGMOID_CE: True
+    USE_ZEROSHOT_CLS: True
+    ZEROSHOT_WEIGHT_DIM: 1024
+    ZEROSHOT_WEIGHT_PATH: 'datasets/metadata/voc_clip_a+cname.npy'
+    ZEROSHOT_WEIGHT_INFERENCE_PATH: 'datasets/metadata/voc_clip_a+cname.npy'
+DATASETS:
+  TEST: ("voc_2007_val",)

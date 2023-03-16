@@ -1,0 +1,31 @@
+_BASE_: "../pascal_part/r50_pascalpartbase.yaml"
+MODEL:
+  ANN_GENERATOR: True
+  META_ARCHITECTURE: ParserNetMixer
+  WEIGHTS: "models/r50_pascalpartbase.pth"
+  ROI_HEADS:
+    SCORE_THRESH_TEST: 0.7
+    NMS_THRESH_TEST: 0.3
+  ROI_BOX_HEAD:
+    ZEROSHOT_WEIGHT_INFERENCE_PATH: 'datasets/metadata/pascal_part_base_clip_a+cname.npy'
+DINO:
+  MODEL_TYPE: 'dino_vits8'
+  STRIDE: 4
+  LAYER: 9
+  THRESH: 0.05
+  BUILD_BASEDATA: False
+  BASEDATA_SAVE_DIR: 'output_basedata_pascalpartbase'
+  BASEDATA_ANN_PATH: 'datasets/pascal_part/train_base_one.json'
+  BASEDATA_IMS_PATH: 'datasets/pascal_part/VOCdevkit/VOC2010/JPEGImages/'
+  PIXEL_NORM: True
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+  MIN_SIZE_TEST: 336
+DATASETS:
+  TEST: ("imagenet_voc_mini",)
+#  TEST: ("imagenet_dog_train_ppart",)
+OUTPUT_ANN_DIR: 'datasets/imagenet/imagenet_voc_mini_parsed.json'
+INPUT:
+  MIN_SIZE_TEST: 336
+  MAX_SIZE_TEST: 996
+  FORMAT: "RGB"
